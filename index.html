@@ -3,13 +3,18 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Travel Explorer</title>
+    <title>Luxury Tropica Travel</title>
+
+    <!-- Leaflet CSS -->
     <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
       rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css"
     />
 
     <style>
+      /* ----------------------------------------------------
+   GLOBAL LUXURY TROPICAL STYLES (Emerald + Gold)
+---------------------------------------------------- */
       * {
         margin: 0;
         padding: 0;
@@ -17,342 +22,511 @@
         font-family: "Poppins", sans-serif;
       }
 
-      body {
-        background: #f3f5f7;
-        color: #333;
+      :root {
+        --emerald: #1dbf73;
+        --gold: #ffca7a;
+        --cream: #f4f3ef;
+        --dark: #222;
+        --light: #fff;
+        --shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.2);
       }
 
-      /* NAVBAR */
+      body {
+        background: var(--cream);
+        color: var(--dark);
+        scroll-behavior: smooth;
+      }
+
+      section {
+        padding: 80px 10%;
+      }
+
+      /* ----------------------------------------------------
+   NAVBAR
+---------------------------------------------------- */
       nav {
-        width: 100%;
         position: fixed;
         top: 0;
-        padding: 18px 7%;
+        width: 100%;
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(12px);
         display: flex;
         justify-content: space-between;
-        align-items: center;
-        backdrop-filter: blur(12px);
-        background: rgba(255, 255, 255, 0.6);
-        z-index: 10;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        padding: 18px 9%;
+        z-index: 50;
+        border-bottom: 1px solid rgba(0, 0, 0, 0.1);
       }
-
-      nav h2 {
-        font-size: 1.8rem;
-        color: #ff7b00;
+      nav h1 {
+        font-size: 1.9rem;
+        color: var(--emerald);
+        font-weight: 700;
       }
-
       nav ul {
         display: flex;
+        gap: 20px;
         list-style: none;
-        gap: 25px;
       }
-
       nav ul li a {
         text-decoration: none;
-        color: #333;
         font-weight: 500;
-        transition: 0.3s;
+        color: var(--dark);
       }
-
       nav ul li a:hover {
-        color: #ff7b00;
+        color: var(--emerald);
       }
 
-      /* HERO */
+      /* ----------------------------------------------------
+   HERO VIDEO SECTION
+---------------------------------------------------- */
       .hero {
         height: 100vh;
-        background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)),
-          url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80")
-            center/cover no-repeat;
+        position: relative;
+        overflow: hidden;
+      }
+      .hero video {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        position: absolute;
+        top: 0;
+        left: 0;
+        z-index: -1;
+      }
+      .hero-content {
+        height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
-        align-items: center;
         text-align: center;
-        padding-top: 80px;
-        color: #fff;
+        color: white;
+        text-shadow: 0px 3px 8px rgba(0, 0, 0, 0.5);
       }
-
-      .hero h1 {
+      .hero h2 {
         font-size: 4rem;
         font-weight: 700;
-        margin-bottom: 15px;
-        animation: fadeInDown 1.2s ease;
       }
-
       .hero p {
-        font-size: 1.2rem;
-        margin-bottom: 25px;
-        animation: fadeInUp 1.2s ease;
+        font-size: 1.3rem;
       }
-
-      @keyframes fadeInDown {
-        from {
-          opacity: 0;
-          transform: translateY(-20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @keyframes fadeInUp {
-        from {
-          opacity: 0;
-          transform: translateY(20px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      .btn-primary {
-        padding: 12px 28px;
-        background: #ff7b00;
-        color: #fff;
-        border-radius: 6px;
+      .btn {
+        margin-top: 20px;
+        background: var(--gold);
+        color: var(--dark);
+        padding: 12px 26px;
+        border-radius: 30px;
         text-decoration: none;
         font-weight: 600;
-        transition: 0.3s;
+      }
+      .btn:hover {
+        background: var(--emerald);
+        color: white;
       }
 
-      .btn-primary:hover {
-        background: #e56f00;
-      }
-
-      /* MAIN SECTIONS */
-      .section {
-        padding: 80px 8%;
-      }
-
-      .section h2 {
-        font-size: 2.6rem;
-        text-align: center;
-        margin-bottom: 40px;
-        color: #222;
-      }
-
-      /* SEARCH BAR */
+      /* ----------------------------------------------------
+   SEARCH BAR (Hotels / Flights / Cars)
+---------------------------------------------------- */
       .search-box {
-        text-align: center;
-        margin-bottom: 30px;
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        margin-top: -50px;
+        box-shadow: var(--shadow);
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 15px;
       }
-      .search-box input {
-        width: 60%;
+      .search-box input,
+      .search-box select {
         padding: 12px;
-        font-size: 1rem;
         border-radius: 8px;
         border: 1px solid #ccc;
       }
+      .search-btn {
+        background: var(--emerald);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+      }
 
-      /* COUNTRY CARDS */
-      .country-list {
+      /* ----------------------------------------------------
+   SECTION TITLES
+---------------------------------------------------- */
+      .section-title {
+        text-align: center;
+        font-size: 2.6rem;
+        color: var(--emerald);
+        margin-bottom: 20px;
+      }
+
+      /* ----------------------------------------------------
+   CARDS
+---------------------------------------------------- */
+      .grid {
         display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
         gap: 25px;
       }
-
-      .country-card {
-        background: #fff;
-        border-radius: 15px;
+      .card {
+        background: white;
         padding: 15px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+        border-radius: 15px;
+        box-shadow: var(--shadow);
         transition: 0.3s;
-        cursor: pointer;
       }
-
-      .country-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+      .card:hover {
+        transform: translateY(-6px);
+        box-shadow: var(--shadow-hover);
       }
-
-      .country-card img {
+      .card img {
         width: 100%;
         height: 170px;
-        object-fit: cover;
         border-radius: 12px;
-        margin-bottom: 12px;
+        object-fit: cover;
       }
-
-      .country-card h3 {
-        font-size: 1.4rem;
-        margin-bottom: 8px;
-        color: #ff7b00;
-      }
-
-      .hotspots {
-        display: none;
+      .card h3 {
         margin-top: 10px;
-        background: #f9f9f9;
+        color: var(--emerald);
+      }
+
+      /* ----------------------------------------------------
+   MAP SECTION (Light Luxury)
+---------------------------------------------------- */
+      #map {
+        height: 400px;
+        width: 100%;
+        border-radius: 15px;
+        box-shadow: var(--shadow);
+      }
+
+      /* ----------------------------------------------------
+   TRIP PLANNER
+---------------------------------------------------- */
+      .planner-box input,
+      .planner-box select,
+      .planner-box button {
         padding: 12px;
         border-radius: 10px;
-        border-left: 4px solid #ff7b00;
+        border: 1px solid #ccc;
+        width: 100%;
+        margin-top: 8px;
       }
 
-      .hotspots ul {
-        padding-left: 18px;
-      }
-
-      /* ABOUT + CONTACT */
-      section p {
-        font-size: 1.1rem;
-        line-height: 1.7;
-        text-align: center;
-      }
-
+      /* ----------------------------------------------------
+   FOOTER
+---------------------------------------------------- */
       footer {
-        background: #222;
-        color: #fff;
+        background: var(--dark);
+        color: white;
         text-align: center;
-        padding: 25px;
-        margin-top: 40px;
+        padding: 40px 10%;
+        margin-top: 80px;
       }
     </style>
   </head>
 
   <body>
-    <!-- NAVBAR -->
+    <!-- ---------------------------------------------------------
+   NAVBAR
+---------------------------------------------------------- -->
     <nav>
-      <h2>Travel Explorer</h2>
+      <h1>Luxury Tropica</h1>
       <ul>
-        <li><a href="#hero">Home</a></li>
-        <li><a href="#countries">Countries</a></li>
-        <li><a href="#about">About Us</a></li>
+        <li><a href="#hotels">Hotels</a></li>
+        <li><a href="#flights">Flights</a></li>
+        <li><a href="#cars">Cars</a></li>
+        <li><a href="#packages">Packages</a></li>
+        <li><a href="#destinations">Destinations</a></li>
+        <li><a href="#map-section">Map</a></li>
         <li><a href="#contact">Contact</a></li>
       </ul>
     </nav>
 
-    <!-- HERO -->
-    <div class="hero" id="hero">
-      <h1>Discover The World</h1>
-      <p>Travel to stunning destinations and explore amazing experiences.</p>
-      <a href="#countries" class="btn-primary">Start Exploring</a>
-    </div>
-
-    <!-- COUNTRY SEARCH + LIST -->
-    <div class="section" id="countries">
-      <h2>Popular Countries</h2>
-
-      <div class="search-box">
-        <input
-          type="text"
-          id="search-input"
-          placeholder="Search for a country..."
+    <!-- ---------------------------------------------------------
+   HERO VIDEO
+---------------------------------------------------------- -->
+    <section class="hero">
+      <video autoplay muted loop>
+        <source
+          src="https://www.pexels.com/download/video/855633/"
+          type="video/mp4"
         />
-      </div>
+      </video>
 
-      <div class="country-list">
-        <!-- France -->
-        <div class="country-card" data-country="france">
+      <div class="hero-content">
+        <h2>Escape to Paradise</h2>
+        <p>Discover luxury destinations around the world.</p>
+        <a class="btn" href="#destinations">Start Exploring</a>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------
+   SEARCH BAR
+---------------------------------------------------------- -->
+    <section>
+      <div class="search-box">
+        <input placeholder="Where to?" />
+        <input type="date" />
+        <input type="date" />
+        <button class="search-btn">Search</button>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------
+   HOTELS SECTION
+---------------------------------------------------------- -->
+    <section id="hotels">
+      <h2 class="section-title">Luxury Hotels</h2>
+      <div class="grid">
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1501117716987-c8e1ecb2101f"
+          />
+          <h3>Bali Ocean Resort</h3>
+          <p>Private villas overlooking the sea.</p>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1571896349842-33c89424de3b"
+          />
+          <h3>Dubai Royal Suites</h3>
+          <p>Experience world-class luxury.</p>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1522708323590-d24dbb6b0267"
+          />
+          <h3>Maldives Sky Villas</h3>
+          <p>Overwater villas with private pools.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------
+   FLIGHTS SECTION
+---------------------------------------------------------- -->
+    <section id="flights">
+      <h2 class="section-title">Flights</h2>
+      <div class="grid">
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1583978641530-a62c7d54d1e4"
+          />
+          <h3>First Class</h3>
+          <p>Luxury experience in the skies.</p>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1542296332-2e4473faf563"
+          />
+          <h3>Business Class</h3>
+          <p>Comfort and privacy.</p>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05"
+          />
+          <h3>Economy</h3>
+          <p>Affordable worldwide travel.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------
+   CAR RENTALS
+---------------------------------------------------------- -->
+    <section id="cars">
+      <h2 class="section-title">Car Rentals</h2>
+      <div class="grid">
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1519641471654-76ce0107ad1b"
+          />
+          <h3>SUV</h3>
+          <p>Perfect for island trips.</p>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1563720360172-67b8f3dce741"
+          />
+          <h3>Luxury Sedans</h3>
+          <p>Travel in style.</p>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7"
+          />
+          <h3>Electric Cars</h3>
+          <p>Eco-friendly options.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------
+   PACKAGES
+---------------------------------------------------------- -->
+    <section id="packages">
+      <h2 class="section-title">Featured Packages</h2>
+      <div class="grid">
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1537996194471-e657df975ab4"
+          />
+          <h3>Bali 5-Day Retreat</h3>
+          <p>Spa + resort stay.</p>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1531366936337-7c912a4589a7"
+          />
+          <h3>Swiss Alps Tour</h3>
+          <p>Explore mountains.</p>
+        </div>
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf"
+          />
+          <h3>Tokyo Explorer</h3>
+          <p>Culture + nightlife.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ---------------------------------------------------------
+   DESTINATIONS
+---------------------------------------------------------- -->
+    <section id="destinations">
+      <h2 class="section-title">Top Destinations</h2>
+      <div class="grid">
+        <div class="card">
+          <img
+            src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e"
+          />
+          <h3>Maldives</h3>
+        </div>
+        <div class="card">
           <img
             src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34"
           />
           <h3>France</h3>
-          <p>A romantic country famous for art, wine, and culture.</p>
-          <div class="hotspots">
-            <h4>Top Hotspots:</h4>
-            <ul>
-              <li>Eiffel Tower</li>
-              <li>Louvre Museum</li>
-              <li>Nice French Riviera</li>
-            </ul>
-          </div>
         </div>
-
-        <!-- Japan -->
-        <div class="country-card" data-country="japan">
+        <div class="card">
           <img
             src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
           />
           <h3>Japan</h3>
-          <p>Where ancient traditions meet futuristic cities.</p>
-          <div class="hotspots">
-            <h4>Top Hotspots:</h4>
-            <ul>
-              <li>Tokyo Shibuya Crossing</li>
-              <li>Kyoto Temples</li>
-              <li>Mount Fuji</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- USA -->
-        <div class="country-card" data-country="usa">
-          <img
-            src="https://images.unsplash.com/photo-1469474968028-56623f02e42e"
-          />
-          <h3>United States</h3>
-          <p>A diverse country full of iconic landmarks and major cities.</p>
-          <div class="hotspots">
-            <h4>Top Hotspots:</h4>
-            <ul>
-              <li>New York — Times Square</li>
-              <li>Los Angeles — Hollywood</li>
-              <li>Grand Canyon</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- Indonesia -->
-        <div class="country-card" data-country="indonesia">
-          <img
-            src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad"
-          />
-          <h3>Indonesia</h3>
-          <p>Home to beaches, temples, volcanoes, and tropical beauty.</p>
-          <div class="hotspots">
-            <h4>Top Hotspots:</h4>
-            <ul>
-              <li>Bali Beaches</li>
-              <li>Borobudur Temple</li>
-              <li>Komodo Islands</li>
-            </ul>
-          </div>
         </div>
       </div>
-    </div>
-
-    <!-- ABOUT US -->
-    <section class="section" id="about">
-      <h2>About Us</h2>
-      <p>
-        Travel Explorer helps you find the world's most stunning destinations.
-        We help travelers plan unforgettable adventures across continents.
-      </p>
     </section>
 
-    <!-- CONTACT -->
-    <section class="section" id="contact">
-      <h2>Contact Us</h2>
-      <p>Email: support@travelexplorer.com</p>
-      <p>Phone: +1 234 567 890</p>
+    <!-- ---------------------------------------------------------
+   MAP
+---------------------------------------------------------- -->
+    <section id="map-section">
+      <h2 class="section-title">Explore the World</h2>
+      <div id="map"></div>
     </section>
 
-    <footer>© 2025 Travel Explorer — All Rights Reserved</footer>
+    <!-- ---------------------------------------------------------
+   CONTACT
+---------------------------------------------------------- -->
+    <section id="contact">
+      <h2 class="section-title">Contact Us</h2>
+      <form style="max-width: 600px; margin: auto">
+        <input
+          style="
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+          "
+          placeholder="Name"
+        />
+        <input
+          style="
+            width: 100%;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+          "
+          placeholder="Email"
+        />
+        <textarea
+          style="width: 100%; padding: 12px; border-radius: 8px"
+          rows="4"
+          placeholder="Message"
+        ></textarea>
+        <button class="search-btn" style="margin-top: 15px; width: 100%">
+          Send
+        </button>
+      </form>
+    </section>
 
+    <!-- ---------------------------------------------------------
+   FOOTER
+---------------------------------------------------------- -->
+    <footer>© 2025 Luxury Tropica Travel — All Rights Reserved</footer>
+
+    <!-- ---------------------------------------------------------
+   MAP FUNCTIONALITY
+---------------------------------------------------------- -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script>
-      /* SEARCH FILTER */
-      const searchInput = document.getElementById("search-input");
-      const cards = document.querySelectorAll(".country-card");
+      // Initialize the map
+      const map = L.map("map").setView([20, 0], 2);
 
-      searchInput.addEventListener("input", function () {
-        const term = this.value.toLowerCase();
-        cards.forEach((card) => {
-          const country = card.getAttribute("data-country");
-          card.style.display = country.includes(term) ? "block" : "none";
-        });
-      });
+      // Add tile layer
+      L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
+        attribution: "© OpenStreetMap contributors",
+        maxZoom: 18,
+      }).addTo(map);
 
-      /* EXPAND HOTSPOTS */
-      document.querySelectorAll(".country-card").forEach((card) => {
-        card.addEventListener("click", () => {
-          const hotspots = card.querySelector(".hotspots");
-          hotspots.style.display =
-            hotspots.style.display === "block" ? "none" : "block";
-        });
+      // Destinations with coordinates
+      const destinations = [
+        {
+          name: "Maldives",
+          lat: 3.2028,
+          lng: 73.2207,
+          desc: "Paradise islands with crystal clear waters",
+        },
+        {
+          name: "Bali, Indonesia",
+          lat: -8.3405,
+          lng: 115.092,
+          desc: "Tropical paradise with stunning beaches",
+        },
+        {
+          name: "Dubai, UAE",
+          lat: 25.2048,
+          lng: 55.2708,
+          desc: "Luxury and modern architecture",
+        },
+        {
+          name: "Paris, France",
+          lat: 48.8566,
+          lng: 2.3522,
+          desc: "The city of lights and romance",
+        },
+        {
+          name: "Tokyo, Japan",
+          lat: 35.6762,
+          lng: 139.6503,
+          desc: "Modern culture meets tradition",
+        },
+        {
+          name: "Swiss Alps",
+          lat: 46.8182,
+          lng: 8.2275,
+          desc: "Breathtaking mountain scenery",
+        },
+      ];
+
+      // Add markers for each destination
+      destinations.forEach((dest) => {
+        const marker = L.marker([dest.lat, dest.lng]).addTo(map);
+        marker.bindPopup(`<b>${dest.name}</b><br>${dest.desc}`);
       });
     </script>
   </body>
