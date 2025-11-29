@@ -1,100 +1,314 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HTML Basics</title>
-</head>
-<body>
-    <h1>HTML Basics for Beginners</h1>
-    
-    <h2>Headings</h2>
-    <h3>This is a subheading</h3>
-    <h4>Smaller heading</h4>
-    
-    <h2>Paragraphs</h2>
-    <p>This is a paragraph. Paragraphs contain text content.</p>
-    <p>This is another paragraph with <strong>bold text</strong> and <em>italic text</em>.</p>
-    
-    <h2>Links</h2>
-    <a href="https://www.example.com">This is a link</a>
-    
-    <h2>Lists</h2>
-    <h3>Unordered List</h3>
-    <ul>
-        <li>First item</li>
-        <li>Second item</li>
-        <li>Third item</li>
-    </ul>
-    
-    <h3>Ordered List</h3>
-    <ol>
-        <li>Step one</li>
-        <li>Step two</li>
-        <li>Step three</li>
-    </ol>
-    
-    <h2>Form Elements</h2>
-    <form>
-        <label for="name">Name:</label>
-        <input type="text" id="name" name="name">
-        <br><br>
-        
-        <label for="email">Email:</label>
-        <input type="email" id="email" name="email">
-        <br><br>
-        
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password">
-        <br><br>
-        
-        <label for="message">Message:</label>
-        <textarea id="message" name="message" rows="4" cols="30"></textarea>
-        <br><br>
-        
-        <input type="checkbox" id="subscribe" name="subscribe">
-        <label for="subscribe">Subscribe to newsletter</label>
-        <br><br>
-        
-        <input type="radio" id="option1" name="choice" value="option1">
-        <label for="option1">Option 1</label>
-        <input type="radio" id="option2" name="choice" value="option2">
-        <label for="option2">Option 2</label>
-        <br><br>
-        
-        <button type="submit">Submit Button</button>
-        <button type="button">Regular Button</button>
-        <button type="reset">Reset Button</button>
-    </form>
-    
-    <h2>Images</h2>
-    <img src="https://via.placeholder.com/150" alt="Placeholder image">
-    
-    <h2>Table</h2>
-    <table border="1">
-        <tr>
-            <th>Header 1</th>
-            <th>Header 2</th>
-        </tr>
-        <tr>
-            <td>Row 1, Cell 1</td>
-            <td>Row 1, Cell 2</td>
-        </tr>
-        <tr>
-            <td>Row 2, Cell 1</td>
-            <td>Row 2, Cell 2</td>
-        </tr>
-    </table>
-    
-    <h2>Horizontal Line</h2>
-    <hr>
-    
-    <h2>Blockquote</h2>
-    <blockquote>This is a quoted text from another source.</blockquote>
-    
-    <h2>Div and Span</h2>
-    <div>This is a div element (block-level container)</div>
-    <p>This paragraph has a <span>span element</span> inside (inline container).</p>
-    
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Travel Explorer</title>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Poppins", sans-serif;
+      }
+
+      body {
+        background: #ffffff;
+      }
+
+      /* NAVBAR */
+      nav {
+        width: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        padding: 15px 8%;
+        position: fixed;
+        top: 0;
+        z-index: 10;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      nav h2 {
+        color: #fff;
+        font-size: 1.6rem;
+        font-weight: 600;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        gap: 25px;
+      }
+
+      nav ul li a {
+        color: #fff;
+        text-decoration: none;
+        font-weight: 500;
+        transition: 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: #ff7b00;
+      }
+
+      /* HERO SECTION */
+      .hero {
+        height: 100vh;
+        background: url("https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=1600&q=80")
+          center/cover no-repeat;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        color: #fff;
+        text-shadow: 0px 3px 8px rgba(0, 0, 0, 0.5);
+        padding-top: 70px;
+      }
+
+      .hero h1 {
+        font-size: 3.8rem;
+        font-weight: 700;
+        margin-bottom: 15px;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 25px;
+      }
+
+      .btn-primary {
+        padding: 12px 28px;
+        background: #ff7b00;
+        color: #fff;
+        border-radius: 6px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+
+      .btn-primary:hover {
+        background: #e56f00;
+      }
+
+      /* SECTIONS */
+      .section {
+        padding: 60px 8%;
+      }
+
+      .section h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 45px;
+        font-weight: 600;
+      }
+
+      /* SEARCH BAR */
+      .search-box {
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .search-box input {
+        width: 60%;
+        padding: 10px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1rem;
+      }
+
+      /* DESTINATION CARDS */
+      .destinations {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 25px;
+      }
+
+      .card {
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        transition: 0.3s;
+      }
+
+      .card img {
+        width: 100%;
+        height: 180px;
+        object-fit: cover;
+      }
+
+      .card:hover {
+        transform: translateY(-6px);
+      }
+
+      .card-body {
+        padding: 15px;
+      }
+
+      .card-body h3 {
+        font-size: 1.4rem;
+        margin-bottom: 8px;
+      }
+
+      .card-body p {
+        font-size: 0.95rem;
+        color: #555;
+      }
+
+      /* ABOUT */
+      #about {
+        background: #f9f9f9;
+        padding: 50px 8%;
+      }
+
+      /* CONTACT */
+      #contact {
+        background: #eee;
+        padding: 50px 8%;
+      }
+
+      footer {
+        text-align: center;
+        padding: 25px;
+        background: #222;
+        color: #fff;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- NAVBAR -->
+    <nav>
+      <h2>Travel Explorer</h2>
+      <ul>
+        <li><a href="#hero">Home</a></li>
+        <li><a href="#about">About Us</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <!-- HERO -->
+    <div class="hero" id="hero">
+      <h1>Explore the World</h1>
+      <p>Your adventure begins here — discover beautiful destinations</p>
+      <a href="#destinations" class="btn-primary">Start Exploring</a>
+    </div>
+
+    <!-- SEARCH BAR -->
+    <div class="section">
+      <h2>Search Destinations</h2>
+
+      <div class="search-box">
+        <input
+          type="text"
+          id="search-input"
+          placeholder="Search countries..."
+        />
+      </div>
+
+      <!-- DESTINATIONS -->
+      <div class="destinations" id="destination-list">
+        <div class="card" data-country="france">
+          <img
+            src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34"
+            alt="Paris"
+          />
+          <div class="card-body">
+            <h3>Paris, France</h3>
+            <p>Romantic streets, iconic landmarks, and unforgettable food.</p>
+          </div>
+        </div>
+
+        <div class="card" data-country="indonesia">
+          <img
+            src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad"
+            alt="Bali"
+          />
+          <div class="card-body">
+            <h3>Bali, Indonesia</h3>
+            <p>Beaches, temples, and tropical paradise.</p>
+          </div>
+        </div>
+
+        <div class="card" data-country="greece">
+          <img
+            src="https://images.unsplash.com/photo-1533050487297-09b450131914"
+            alt="Santorini"
+          />
+          <div class="card-body">
+            <h3>Santorini, Greece</h3>
+            <p>Beautiful sunsets, white houses, and crystal waters.</p>
+          </div>
+        </div>
+
+        <div class="card" data-country="japan">
+          <img
+            src="https://images.unsplash.com/photo-1506744038136-46273834b3fb"
+            alt="Tokyo"
+          />
+          <div class="card-body">
+            <h3>Tokyo, Japan</h3>
+            <p>Bright city lights and amazing street food.</p>
+          </div>
+        </div>
+
+        <div class="card" data-country="usa">
+          <img
+            src="https://images.unsplash.com/photo-1469474968028-56623f02e42e"
+            alt="New York"
+          />
+          <div class="card-body">
+            <h3>New York, USA</h3>
+            <p>The city that never sleeps — iconic skylines and attractions.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ABOUT US -->
+    <section id="about">
+      <h2>About Us</h2>
+      <p>
+        Travel Explorer is your trusted companion for discovering the most
+        breathtaking destinations around the world. Our mission is to make
+        travel easy, enjoyable, and unforgettable.
+      </p>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <p>Email: support@travelexplorer.com</p>
+      <p>Phone: +1 234 567 890</p>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>© 2025 Travel Explorer — All Rights Reserved</footer>
+
+    <!-- SEARCH FILTER SCRIPT -->
+    <script>
+      const searchInput = document.getElementById("search-input");
+      const cards = document.querySelectorAll(".card");
+
+      searchInput.addEventListener("input", function () {
+        const searchTerm = this.value.toLowerCase();
+
+        cards.forEach((card) => {
+          const country = card.getAttribute("data-country");
+          if (country.includes(searchTerm)) {
+            card.style.display = "block";
+          } else {
+            card.style.display = "none";
+          }
+        });
+      });
+    </script>
+  </body>
 </html>
